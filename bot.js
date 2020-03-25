@@ -12,7 +12,7 @@ var bot = new Discord.Client({
 });
 
 bot.on('ready', function() {
-  console.log('Logged in as %s - %s\n', bot.user.tag);
+  console.log('Logged in as %s', bot.user.tag);
 });
 
 var five_to_eight = (() => {
