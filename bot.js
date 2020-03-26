@@ -187,8 +187,12 @@ bot.on('message', function(msg) {
         msg.channel.send(x.river + ": " + x.desc);
       });
 
-      console.log(rivers);
     });
+  }
+
+  if(msg.content.match(/\~help/)) {
+    msg.channel.send('Type \'~river <river>\' for rain chaser info about <river>');
+    msg.channel.send('Type \'~dart\' to check if the dart is running');
   }
 
   if(sex_tape_count % sex_tape_freq === 0) {
