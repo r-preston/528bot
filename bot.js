@@ -136,6 +136,10 @@ bot.on('message', function(msg) {
     msg.channel.send('The time is currently ' + getFiveToEight());
   }
 
+  if(msg.content === "21") {
+    msg.channel.send('Consume!!');
+  }
+
   
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
   if(msg.content.toLowerCase().match(mine_rx)) {
