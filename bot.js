@@ -5,7 +5,6 @@ var cron = require('cron');
 require('dotenv').config();
 
 console.log(process.env.FIVE_CHANNEL);
-process.env.VALID_CHANNELS = process.env.VALID_CHANNELS.split(',');
 
 var five_to_eight_channel_id;// = "692462958562902038";
 
@@ -19,19 +18,28 @@ var bot = new Discord.Client({
 
 bot.on('ready', function() {
 
+  var VALID_CHANNELS_s = process.env.VALID_CHANNELS.split(',');
+  console.log(VALID_CHANNELS_s);
   //getting channel id
   bot.channels.cache.forEach(
     x => {
-      if(process.env.VALID_CHANNELS.indexOf(x.name) !== -1) {
+      if(VALID_CHANNELS_s.indexOf(x.name) !== -1) {
         valid_channels.push(x.id);
       }
 
       if(x.name == process.env.FIVE_CHANNEL) {
         five_to_eight_channel_id = x.id;
+        valid_channels.push(x.id);
       }
     }
   );
+
+  console.log('Bot ready!');
+  console.log('Working on channels: ', ... VALID_CHANNELS_s);
+  console.log('Five 2 eighting on channel: ', process.env.FIVE_CHANNEL);
 });
+
+
 
 var five_to_eight = (() => {
 
@@ -99,6 +107,7 @@ const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
 bot.on('message', function(msg) {
 
   //console.log(msg);
+  console.log('recieved');
 
   //checks if the channel is valid
   if(valid_channels.indexOf(msg.channel.id) === -1) {

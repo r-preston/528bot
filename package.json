@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "node bot.js",
-    "dev": "NODE_ENV=development nodemon bot.js"
+    "dev": "NODE_ENV=development nodemon bot.js",
+    "deploy": "rsync -r . --exclude ./node_modules/ --exclude .env --exclude ./auth.json --exclude .git alwinhughes.com:~/528"
   },
   "author": "",
   "license": "ISC",
