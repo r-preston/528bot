@@ -115,6 +115,11 @@ bot.on('message', function(msg) {
 
 
   //console.log(msg);
+  
+  if(msg.channel === "counting" && msg.content.match(/(^|(.*\ ))21(\ |\?|$|\.|\!).*/i)) {
+    msg.channel.send('Consume!!');
+    return
+  }
 
   //checks if the channel is valid
   if(valid_channels.indexOf(msg.channel.id) === -1) {
@@ -136,11 +141,12 @@ bot.on('message', function(msg) {
     msg.channel.send('The time is currently ' + getFiveToEight());
   }
 
-  if(msg.content === "21") {
+  if(msg.content.match(/(^|(.*\ ))21(\ |\?|$|\.|\!).*/i)) {
     msg.channel.send('Consume!!');
+    return
   }
 
-  
+
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
   if(msg.content.toLowerCase().match(mine_rx)) {
     msg.channel.send('M - I - N - E');
@@ -171,13 +177,9 @@ bot.on('message', function(msg) {
     request('http://rainchasers.com/?q=' + river, (err, res, body) => {
 
       var rivers = [];
-    
       var html = $('.primary > ul > li', body);
-      
-      console.log(html.length);
 
 
-      
       for(var i = 0; i < html.length; i++) {
         html[i.toString()].parent = null;
         html[i.toString()].prev = null;
@@ -186,7 +188,7 @@ bot.on('message', function(msg) {
         rivers.push({river: html[i.toString()].children[1].children[0].data.substring(5), desc: html[i.toString()].children[3].children[0].data});
 
       }
-      
+
       rivers.forEach( x => {
         msg.channel.send(x.river + ": " + x.desc);
       });
