@@ -1,6 +1,7 @@
 var Discord = require('discord.js');
 var auth = require('./auth.json');
 const cron = require('cron');
+const $ = require('cheerio');
 
 const request = require('request');
 const http = require('http');
@@ -19,7 +20,7 @@ var bot = new Discord.Client({
   username: "528 bot"
 });
 
-var sex_tape_count = 0;
+var sex_tape_count = 1;
 const sex_tape_freq = 500;
 
 bot.on('ready', function() {
@@ -160,8 +161,34 @@ bot.on('message', function(msg) {
     });
   }
 
-  if(msg.content.match(/\~river /)) {
+  if(msg.content.match(/\~river/)) {
+    console.log('river');
+    var river = msg.content.toLowerCase().split(' ')[1];
+    request('http://rainchasers.com/?q=' + river, (err, res, body) => {
 
+      var rivers = [];
+    
+      var html = $('.primary > ul > li', body);
+      
+      console.log(html.length);
+
+
+      
+      for(var i = 0; i < html.length; i++) {
+        html[i.toString()].parent = null;
+        html[i.toString()].prev = null;
+        //console.log(html[i.toString()].children[1].children[0].data);
+        //console.log(html[i.toString()].children[3].children[0].data);
+        rivers.push({river: html[i.toString()].children[1].children[0].data.substring(5), desc: html[i.toString()].children[3].children[0].data});
+
+      }
+      
+      rivers.forEach( x => {
+        msg.channel.send(x.river + ": " + x.desc);
+      });
+
+      console.log(rivers);
+    });
   }
 
   if(sex_tape_count % sex_tape_freq === 0) {
