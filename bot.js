@@ -116,8 +116,13 @@ bot.on('message', function(msg) {
 
   //console.log(msg);
   
-  if(msg.channel === "counting" && msg.content.match(/(^|(.*\ ))21(\ |\?|$|\.|\!).*/i)) {
+  if(msg.channel === "counting" && msg.content.match(/(^|([0-9]*))21(\ |\?|$|\.|\!).*/i)) {
     msg.channel.send('Consume!!');
+    return
+  }
+
+  if(msg.channel === "counting" && msg.content === "69") {
+    msg.channel.send('Nice');
     return
   }
 
@@ -141,10 +146,11 @@ bot.on('message', function(msg) {
     msg.channel.send('The time is currently ' + getFiveToEight());
   }
 
-  if(msg.content.match(/(^|(.*\ ))21(\ |\?|$|\.|\!).*/i)) {
+  if(msg.content.match(/(^|(.*\ )|([0-9]*))21(\ |\?|$|\.|\!).*/i)) {
     msg.channel.send('Consume!!');
-    return
+    return;
   }
+
 
 
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
