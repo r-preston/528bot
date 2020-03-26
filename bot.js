@@ -1,7 +1,11 @@
 var Discord = require('discord.js');
 var auth = require('./auth.json');
-
 var cron = require('cron');
+
+require('dotenv').config();
+
+console.log(process.env.FIVE_CHANNEL);
+process.env.VALID_CHANNELS = process.env.VALID_CHANNELS.split(',');
 
 var five_to_eight_channel_id;// = "692462958562902038";
 
@@ -18,9 +22,12 @@ bot.on('ready', function() {
   //getting channel id
   bot.channels.cache.forEach(
     x => {
-      if(x.name == 'general') {
-        five_to_eight_channel_id = x.id;
+      if(process.env.VALID_CHANNELS.indexOf(x.name) !== -1) {
         valid_channels.push(x.id);
+      }
+
+      if(x.name == process.env.FIVE_CHANNEL) {
+        five_to_eight_channel_id = x.id;
       }
     }
   );
@@ -40,7 +47,6 @@ var five_to_eight = (() => {
 
 
   var user = users[getRandInt(users.length)];
-
 
   var channel = bot.channels.cache.get(five_to_eight_channel_id);
   channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
@@ -66,7 +72,6 @@ var test_event = ( () => {
 
   var user = users[getRandInt(users.length)];
 
-//  console.log("Congratulations " + bot.users.cache.get(user).username + '! you are today\'s special guest');
 
   var channel = bot.channels.cache.get(five_to_eight_channel_id);
   channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
@@ -93,7 +98,7 @@ const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
 
 bot.on('message', function(msg) {
 
-  console.log(msg);
+  //console.log(msg);
 
   //checks if the channel is valid
   if(valid_channels.indexOf(msg.channel.id) === -1) {
@@ -104,17 +109,27 @@ bot.on('message', function(msg) {
     return;
   }
 
-  if (msg.content.indexOf("when") !== -1) {
+  if (msg.content.toLowerCase().indexOf("when") !== -1) {
     msg.channel.send('At ' + getFiveToEight());
   }
 
-  /*
-   * scotland only
-  if(msg.content.indexOf("mine") !== -1) {
+  if(msg.content.toLowerCase().indexOf("what time is it") !== -1) {
+    msg.channel.send('The time is currently ' + getFiveToEight());
+  }
+
+  
+  if(msg.content.toLowerCase().indexOf("mine") !== -1) {
     msg.channel.send('M - I - N - I');
     msg.channel.send('Do your press ups!');
   }
-  */
+
+  if(msg.content.toLowerCase().indexOf("scotland") !== -1) {
+    if(getRandInt(1) === 1){ 
+      msg.channel.send('Did you go to Scotland?');
+    } else {
+      msg.channel.send('Did you know I went to Scotland?');
+    }
+  }
 
 });
 
