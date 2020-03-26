@@ -108,10 +108,13 @@ bot.on('message', function(msg) {
     msg.channel.send('At ' + getFiveToEight());
   }
 
+  /*
+   * scotland only
   if(msg.content.indexOf("mine") !== -1) {
     msg.channel.send('M - I - N - I');
     msg.channel.send('Do your press ups!');
   }
+  */
 
 });
 
