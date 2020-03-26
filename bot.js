@@ -16,6 +16,9 @@ var bot = new Discord.Client({
   username: "528 bot"
 });
 
+var sex_tape_count = 0;
+const sex_tape_freq = 500;
+
 bot.on('ready', function() {
 
   var VALID_CHANNELS_s = process.env.VALID_CHANNELS.split(',');
@@ -106,8 +109,8 @@ const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
 
 bot.on('message', function(msg) {
 
+
   //console.log(msg);
-  console.log('recieved');
 
   //checks if the channel is valid
   if(valid_channels.indexOf(msg.channel.id) === -1) {
@@ -118,27 +121,42 @@ bot.on('message', function(msg) {
     return;
   }
 
-  if (msg.content.toLowerCase().indexOf("when") !== -1) {
+
+  var when_rx = /(^|(.*\ ))when(\ |\?|$|\.|\!).*/i;
+
+  if (msg.content.match(when_rx)) {
     msg.channel.send('At ' + getFiveToEight());
   }
 
-  if(msg.content.toLowerCase().indexOf("what time is it") !== -1) {
+  if(msg.content.indexOf("what time is it") !== -1) {
     msg.channel.send('The time is currently ' + getFiveToEight());
   }
 
   
-  if(msg.content.toLowerCase().indexOf("mine") !== -1) {
+  var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
+  if(msg.content.toLowerCase().match(mine_rx)) {
     msg.channel.send('M - I - N - E');
     msg.channel.send('Do your press ups!');
   }
 
-  if(msg.content.toLowerCase().indexOf("scotland") !== -1) {
+  var scot_rx = /(^|(.*\ ))scotland(\ |\?|$|\.|\!).*/i;
+  if(msg.content.match(scot_rx)) {
     if(getRandInt(1) === 1){ 
       msg.channel.send('Did you go to Scotland?');
     } else {
       msg.channel.send('Did you know I went to Scotland?');
     }
   }
+
+  if(msg.content.match(/\~river /)) {
+  }
+
+  if(sex_tape_count % sex_tape_freq === 0) {
+    msg.channel.send('```' + msg.content + '```' + ' Title of your sex tape');
+    sex_tape_count = 0;
+  }
+
+  sex_tape_count++;
 
 });
 
