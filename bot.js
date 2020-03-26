@@ -1,6 +1,9 @@
 var Discord = require('discord.js');
 var auth = require('./auth.json');
-var cron = require('cron');
+const cron = require('cron');
+
+const request = require('request');
+const http = require('http');
 
 require('dotenv').config();
 
@@ -148,7 +151,17 @@ bot.on('message', function(msg) {
     }
   }
 
+  if(msg.content.match(/\~dart/)) {
+    request('http://isthedartrunning.co.uk/dart.json', {json: true}, (err, res, body) => {
+
+      msg.channel.send(body.text);
+      msg.channel.send('The dart is currently at: ' + (Math.round(body.current_level *100)/100));
+
+    });
+  }
+
   if(msg.content.match(/\~river /)) {
+
   }
 
   if(sex_tape_count % sex_tape_freq === 0) {
