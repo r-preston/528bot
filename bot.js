@@ -119,7 +119,7 @@ bot.on('message', function(msg) {
 
   
   if(msg.content.toLowerCase().indexOf("mine") !== -1) {
-    msg.channel.send('M - I - N - I');
+    msg.channel.send('M - I - N - E');
     msg.channel.send('Do your press ups!');
   }
 
