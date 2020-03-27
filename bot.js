@@ -208,7 +208,7 @@ bot.on('message', function(msg) {
   }
 
   if(msg.content.match(/\~help/)) {
-    msg.channel.send('Type \'~river <river>\' for rain chaser info about <river>');
+    msg.channel.send('Type \'~river <river>\' for rain chasers info about <river>');
     msg.channel.send('Type \'~dart\' to check if the dart is running');
   }
 
