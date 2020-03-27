@@ -4,6 +4,7 @@
 
 1. Will 528 a random user in the channel at the appropriate time.(not working)
 2. Chance (1 in 20) of responding to any mention of owen with a "FUCK OFF"
+3. 1 in 30 chance of telling Will to "Stop shit-chatting"
 3. After seeing when in a sentence will respon with some variant of "528", "five to eight", ect.
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
