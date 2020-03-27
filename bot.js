@@ -144,7 +144,7 @@ bot.on('message', function(msg) {
     msg.channel.send('FUCK OFF Owen!');
   }
   
-  if(msg.author.username === "Will" && getRandInt(30) === 0) {
+  if(msg.author.id === "185132843775557638" && getRandInt(30) === 0) {
     msg.channel.send('Stop shit-chatting Will!');
   }
 
