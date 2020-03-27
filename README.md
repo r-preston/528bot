@@ -14,7 +14,8 @@
 ## Todo
 
 1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
-2. Make the rain chaser better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just scraping from their search page.
+2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just scraping from their search page.
+3. Impliment circling games?
 
 ## How to test
 
