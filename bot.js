@@ -140,7 +140,8 @@ bot.on('message', function(msg) {
   var when_rx = /(^|(.*\ ))when(\ |\?|$|\.|\!).*/i;
 
   if(msg.content.match(/(^|(.*\ ))owen(\ |\?|$|\.|\!).*/i) && getRandInt(20) === 0) {
-    msg.channel.send('FUCK OFF <@223141837743849473>!');
+    //msg.channel.send('FUCK OFF <@223141837743849473>!');
+    msg.channel.send('FUCK OFF Owen!');
   }
 
   if (msg.content.match(when_rx)) {
