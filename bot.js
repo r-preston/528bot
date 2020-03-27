@@ -50,6 +50,8 @@ bot.on('ready', function() {
 
 var five_to_eight = (() => {
 
+  console.log('trying to five to eight');
+
   var users = [];
 
   bot.users.cache.forEach( x => {
@@ -64,8 +66,8 @@ var five_to_eight = (() => {
   var user = users[getRandInt(users.length)];
 
   var channel = bot.channels.cache.get(five_to_eight_channel_id);
-  channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
   channel.send("it is " + getFiveToEight());
+  channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
   channel.send("No one likes you");
   channel.send("No one likes you");
   channel.send("Woa-ooo-ooo");
@@ -74,6 +76,9 @@ var five_to_eight = (() => {
 }).bind(this);
 
 var test_event = ( () => {
+
+  console.log('test event');
+
   var users = [];
 
   bot.users.cache.forEach( x => {
@@ -86,11 +91,6 @@ var test_event = ( () => {
 
 
   var user = users[getRandInt(users.length)];
-
-
-  var channel = bot.channels.cache.get(five_to_eight_channel_id);
-  channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
-
 
 }).bind(this);
 
@@ -103,10 +103,11 @@ function getFiveToEight() {
 }
 
 let job = new cron.CronJob('00 55 07,19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
-let job1 = new cron.CronJob('00,30 * * * * *', test_event); // fires every day, at 01:05:01 and 13:05:01
+let job1 = new cron.CronJob('00 00 21 * * *', test_event); // fires every day, at 01:05:01 and 13:05:01
 
-job.start();
-//job1.start();
+
+//job.start();
+job1.start();
 
 
 const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
@@ -137,6 +138,10 @@ bot.on('message', function(msg) {
 
 
   var when_rx = /(^|(.*\ ))when(\ |\?|$|\.|\!).*/i;
+
+  if(msg.content.match(/(^|(.*\ ))owen(\ |\?|$|\.|\!).*/i) && getRandInt(20) === 0) {
+    msg.channel.send('FUCK OFF <@223141837743849473>!');
+  }
 
   if (msg.content.match(when_rx)) {
     msg.channel.send('At ' + getFiveToEight());
@@ -215,7 +220,6 @@ bot.on('message', function(msg) {
   sex_tape_count++;
 
 });
-
 
 
 bot.login(auth.token);
