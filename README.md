@@ -36,4 +36,5 @@ FIVE_CHANNEL=five2eightme
 VLID_CHANNELS=five2eightme,otherstuff,anotherchannel
 ```
 
+To start the bot run `$npm run dev`. The bot will restart when it detects a file has been changed.
 
