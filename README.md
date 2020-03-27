@@ -15,7 +15,7 @@
 
 1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
 2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just scraping from their search page.
-3. Impliment circling games?
+3. Implement circling games?
 
 ## How to test
 
@@ -33,7 +33,7 @@ An example .env file would look like:
 
 ```
 FIVE_CHANNEL=five2eightme
-VLID_CHANNELS=five2eightme,otherstuff,anotherchannel
+VALID_CHANNELS=five2eightme,otherstuff,anotherchannel
 ```
 
 To start the bot run `$npm run dev`. The bot will restart when it detects a file has been changed.
