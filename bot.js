@@ -143,6 +143,10 @@ bot.on('message', function(msg) {
     //msg.channel.send('FUCK OFF <@223141837743849473>!');
     msg.channel.send('FUCK OFF Owen!');
   }
+  
+  if(msg.author.username === "Will" && getRandInt(30) === 0) {
+    msg.channel.send('Stop shit-chatting Will!');
+  }
 
   if (msg.content.match(when_rx)) {
     msg.channel.send('At ' + getFiveToEight());
