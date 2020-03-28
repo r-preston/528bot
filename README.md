@@ -9,7 +9,7 @@
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
 6. Type "~river <river>" to get the rain chasers information about a river (taken from rain chasers api)
-7. Once every 500 messages will respond with the users message and "Title of your sex tape".
+7. 1 in 200 chance to respond to any message on a valid channel with "Title of your sex tape".
 8. Type "~help" for a list of comands
 
 ## Todo

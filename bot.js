@@ -152,6 +152,10 @@ bot.on('message', function(msg) {
     msg.channel.send('Stop shit-chatting Will!');
   }
 
+  if(msg.content.match(/(^|(.*\ ))what is the time(\ |\?|$|\.|\!).*/i) || msg.content.match(/(^|(.*\ ))what time is it(\ |\?|$|\.|\!).*/i)) {
+    msg.channel.send('The time is currently ' + getFiveToEight());
+  }
+
   if (msg.content.match(when_rx)) {
     msg.channel.send('At ' + getFiveToEight());
   }
@@ -225,7 +229,7 @@ bot.on('message', function(msg) {
     msg.channel.send('Type \'~dart\' to check if the dart is running');
   }
 
-  if(sex_tape_count % sex_tape_freq === 0) {
+  if(getRandInt(200) === 0) {
     msg.channel.send('```' + msg.content + '```' + ' Title of your sex tape');
     sex_tape_count = 0;
   }
