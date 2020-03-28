@@ -4,6 +4,7 @@
 
 1. Will 528 a random user in the channel at the appropriate time.(not working)
 2. Chance (1 in 20) of responding to any mention of owen with a "FUCK OFF"
+3. 1 in 30 chance of telling Will to "Stop shit-chatting"
 3. After seeing when in a sentence will respon with some variant of "528", "five to eight", ect.
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
@@ -15,7 +16,7 @@
 
 1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
 2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
-3. Impliment circling games?
+3. Implement circling games?
 
 ## How to test
 
@@ -33,7 +34,7 @@ An example .env file would look like:
 
 ```
 FIVE_CHANNEL=five2eightme
-VLID_CHANNELS=five2eightme,otherstuff,anotherchannel
+VALID_CHANNELS=five2eightme,otherstuff,anotherchannel
 ```
 
 To start the bot run `$npm run dev`. The bot will restart when it detects a file has been changed.
