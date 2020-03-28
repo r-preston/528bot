@@ -161,8 +161,6 @@ bot.on('message', function(msg) {
     return;
   }
 
-
-
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
   if(msg.content.toLowerCase().match(mine_rx)) {
     msg.channel.send('M - I - N - E');
@@ -171,7 +169,7 @@ bot.on('message', function(msg) {
 
   var scot_rx = /(^|(.*\ ))scotland(\ |\?|$|\.|\!).*/i;
   if(msg.content.match(scot_rx)) {
-    if(getRandInt(1) === 1){ 
+    if(getRandInt(1) === 1){
       msg.channel.send('Did you go to Scotland?');
     } else {
       msg.channel.send('Did you know I went to Scotland?');
@@ -188,13 +186,25 @@ bot.on('message', function(msg) {
   }
 
   if(msg.content.match(/\~river/)) {
-    console.log('river');
-    var river = msg.content.toLowerCase().split(' ')[1];
-    //http://api.rainchasers.com/v1/river?q=dart
+    var river = msg.content.toLowerCase().split(/\~river\ /i)[1];
+    //console.log('river', river);
     request('http://api.rainchasers.com/v1/river?q=' + river, {json: true}, (err, res, body) => {
+
       if(body.status === 200) {
-        body.data.forEach( x => {
-          msg.channel.send(x.river + ' ' + x.section + ' grade ' + x.grade.text + ' currently on ' + (Math.round(100 * x.state.value) /100) + ' (' + x.state.text+  ')' );
+        body.data.forEach( (x,i) => {
+
+          if(i == 8) {
+            msg.channel.send('too many results');
+            return;
+          } else if (i > 8) {
+            // do nothing
+          } else {
+            var res = x.river + ' ' + x.section + ' grade ' + x.grade.text;
+            if(x.state) {
+              res = res + ' currently on ' + (Math.round(100 * x.state.value) /100) + ' (' + x.state.text+  ')';
+            }
+            msg.channel.send(res);
+          }
           //console.log(body.);
         });
       } else if(body.status === 202) {

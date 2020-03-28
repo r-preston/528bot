@@ -7,14 +7,14 @@
 3. After seeing when in a sentence will respon with some variant of "528", "five to eight", ect.
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
-6. Type "~river <river>" to get the rain chasers information about a river (scraped from rain chasers)
+6. Type "~river <river>" to get the rain chasers information about a river (taken from rain chasers api)
 7. Once every 500 messages will respond with the users message and "Title of your sex tape".
 8. Type "~help" for a list of comands
 
 ## Todo
 
 1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
-2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just scraping from their search page.
+2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
 3. Impliment circling games?
 
 ## How to test
