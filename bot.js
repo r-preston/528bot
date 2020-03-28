@@ -26,7 +26,6 @@ const sex_tape_freq = 500;
 bot.on('ready', function() {
 
   var VALID_CHANNELS_s = process.env.VALID_CHANNELS.split(',');
-  console.log(VALID_CHANNELS_s);
   //getting channel id
   bot.channels.cache.forEach(
     x => {
@@ -44,6 +43,7 @@ bot.on('ready', function() {
   console.log('Bot ready!');
   console.log('Working on channels: ', ... VALID_CHANNELS_s);
   console.log('Five 2 eighting on channel: ', process.env.FIVE_CHANNEL);
+
 });
 
 
@@ -81,9 +81,10 @@ var test_event = ( () => {
 
   var users = [];
 
+  /*
   bot.users.cache.forEach( x => {
 
-    if(!x.bot) {
+  n if(!x.bot) {
       users.push(x.id);
     }
 
@@ -91,6 +92,7 @@ var test_event = ( () => {
 
 
   var user = users[getRandInt(users.length)];
+  */
 
 }).bind(this);
 
@@ -102,12 +104,14 @@ function getFiveToEight() {
   return five_2_eight[getRandInt(five_2_eight.length)];
 }
 
-let job = new cron.CronJob('00 55 07,19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
-let job1 = new cron.CronJob('00 00 21 * * *', test_event); // fires every day, at 01:05:01 and 13:05:01
+let morning = new cron.CronJob('00 55 07 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+let afternoon = new cron.CronJob('00 55 19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+//let job1 = new cron.CronJob('00 * * * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 
 
-//job.start();
-job1.start();
+morning.start();
+afternoon.start();
+//job1.start();
 
 
 const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
