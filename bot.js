@@ -149,7 +149,7 @@ bot.on('message', function(msg) {
   }
   
   if(msg.author.id === "185132843775557638" && getRandInt(30) === 0) {
-    msg.channel.send('Stop shit-chatting Will!');
+    msg.channel.send('Stop shit-chatting, Will!');
   }
 
   if(msg.content.match(/(^|(.*\ ))what is the time(\ |\?|$|\.|\!).*/i) || msg.content.match(/(^|(.*\ ))what time is it(\ |\?|$|\.|\!).*/i)) {
