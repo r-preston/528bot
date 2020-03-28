@@ -190,24 +190,18 @@ bot.on('message', function(msg) {
   if(msg.content.match(/\~river/)) {
     console.log('river');
     var river = msg.content.toLowerCase().split(' ')[1];
-    request('http://rainchasers.com/?q=' + river, (err, res, body) => {
-
-      var rivers = [];
-      var html = $('.primary > ul > li', body);
-
-
-      for(var i = 0; i < html.length; i++) {
-        html[i.toString()].parent = null;
-        html[i.toString()].prev = null;
-        //console.log(html[i.toString()].children[1].children[0].data);
-        //console.log(html[i.toString()].children[3].children[0].data);
-        rivers.push({river: html[i.toString()].children[1].children[0].data.substring(5), desc: html[i.toString()].children[3].children[0].data});
-
+    //http://api.rainchasers.com/v1/river?q=dart
+    request('http://api.rainchasers.com/v1/river?q=' + river, {json: true}, (err, res, body) => {
+      if(body.status === 200) {
+        body.data.forEach( x => {
+          msg.channel.send(x.river + ' ' + x.section + ' grade ' + x.grade.text + ' currently on ' + (Math.round(100 * x.state.value) /100) + ' (' + x.state.text+  ')' );
+          //console.log(body.);
+        });
+      } else if(body.status === 202) {
+        msg.channel.send('couldn\'t find the ' + river);
+      } else {
+        msg.channel.send('Something has gone terribly wrong');
       }
-
-      rivers.forEach( x => {
-        msg.channel.send(x.river + ": " + x.desc);
-      });
 
     });
   }
