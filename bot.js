@@ -26,7 +26,6 @@ const sex_tape_freq = 500;
 bot.on('ready', function() {
 
   var VALID_CHANNELS_s = process.env.VALID_CHANNELS.split(',');
-  console.log(VALID_CHANNELS_s);
   //getting channel id
   bot.channels.cache.forEach(
     x => {
@@ -44,6 +43,7 @@ bot.on('ready', function() {
   console.log('Bot ready!');
   console.log('Working on channels: ', ... VALID_CHANNELS_s);
   console.log('Five 2 eighting on channel: ', process.env.FIVE_CHANNEL);
+
 });
 
 
@@ -81,9 +81,10 @@ var test_event = ( () => {
 
   var users = [];
 
+  /*
   bot.users.cache.forEach( x => {
 
-    if(!x.bot) {
+  n if(!x.bot) {
       users.push(x.id);
     }
 
@@ -91,6 +92,7 @@ var test_event = ( () => {
 
 
   var user = users[getRandInt(users.length)];
+  */
 
 }).bind(this);
 
@@ -102,12 +104,14 @@ function getFiveToEight() {
   return five_2_eight[getRandInt(five_2_eight.length)];
 }
 
-let job = new cron.CronJob('00 55 07,19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
-let job1 = new cron.CronJob('00 00 21 * * *', test_event); // fires every day, at 01:05:01 and 13:05:01
+let morning = new cron.CronJob('00 55 07 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+let afternoon = new cron.CronJob('00 55 19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+//let job1 = new cron.CronJob('00 * * * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 
 
-//job.start();
-job1.start();
+morning.start();
+afternoon.start();
+//job1.start();
 
 
 const five_2_eight = ["528", "five to eight", "7:55", "19:55"]
@@ -161,8 +165,6 @@ bot.on('message', function(msg) {
     return;
   }
 
-
-
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
   if(msg.content.toLowerCase().match(mine_rx)) {
     msg.channel.send('M - I - N - E');
@@ -171,7 +173,7 @@ bot.on('message', function(msg) {
 
   var scot_rx = /(^|(.*\ ))scotland(\ |\?|$|\.|\!).*/i;
   if(msg.content.match(scot_rx)) {
-    if(getRandInt(1) === 1){ 
+    if(getRandInt(1) === 1){
       msg.channel.send('Did you go to Scotland?');
     } else {
       msg.channel.send('Did you know I went to Scotland?');
@@ -188,26 +190,32 @@ bot.on('message', function(msg) {
   }
 
   if(msg.content.match(/\~river/)) {
-    console.log('river');
-    var river = msg.content.toLowerCase().split(' ')[1];
-    request('http://rainchasers.com/?q=' + river, (err, res, body) => {
+    var river = msg.content.toLowerCase().split(/\~river\ /i)[1];
+    //console.log('river', river);
+    request('http://api.rainchasers.com/v1/river?q=' + river, {json: true}, (err, res, body) => {
 
-      var rivers = [];
-      var html = $('.primary > ul > li', body);
+      if(body.status === 200) {
+        body.data.forEach( (x,i) => {
 
-
-      for(var i = 0; i < html.length; i++) {
-        html[i.toString()].parent = null;
-        html[i.toString()].prev = null;
-        //console.log(html[i.toString()].children[1].children[0].data);
-        //console.log(html[i.toString()].children[3].children[0].data);
-        rivers.push({river: html[i.toString()].children[1].children[0].data.substring(5), desc: html[i.toString()].children[3].children[0].data});
-
+          if(i == 8) {
+            msg.channel.send('too many results');
+            return;
+          } else if (i > 8) {
+            // do nothing
+          } else {
+            var res = x.river + ' ' + x.section + ' grade ' + x.grade.text;
+            if(x.state) {
+              res = res + ' currently on ' + (Math.round(100 * x.state.value) /100) + ' (' + x.state.text+  ')';
+            }
+            msg.channel.send(res);
+          }
+          //console.log(body.);
+        });
+      } else if(body.status === 202) {
+        msg.channel.send('couldn\'t find the ' + river);
+      } else {
+        msg.channel.send('Something has gone terribly wrong');
       }
-
-      rivers.forEach( x => {
-        msg.channel.send(x.river + ": " + x.desc);
-      });
 
     });
   }
