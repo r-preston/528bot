@@ -70,7 +70,7 @@ var five_to_eight = (() => {
   channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
   channel.send("No one likes you");
   channel.send("No one likes you");
-  channel.send("Woa-ooo-ooo");
+  channel.send("Woa-ooo-oooh");
   channel.send("You're a cunt");
 
 }).bind(this);
