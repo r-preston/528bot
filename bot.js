@@ -1,5 +1,5 @@
-var Discord = require('discord.js');
-var auth = require('./auth.json');
+const Discord = require('discord.js');
+const auth = require('./auth.json');
 const cron = require('cron');
 const $ = require('cheerio');
 const Rainfall = require('./rainfall.js');
@@ -9,9 +9,7 @@ const http = require('http');
 
 require('dotenv').config();
 
-console.log(process.env.FIVE_CHANNEL);
-
-var five_to_eight_channel_id;// = "692462958562902038";
+//var five_to_eight_channel_id;// = "692462958562902038";
 
 var valid_channels = [];
 
@@ -188,10 +186,13 @@ bot.on('message', function(msg) {
   if(msg.content.match(/\~rain/)) {
     var location = msg.content.toLowerCase().split(/\~rain\ /i)[1];
     Rainfall.get_rain_data(location, (output) => {
-      for(var i = 0; i < output.length; i++)
-      {
-        msg.channel.send(output[i]);
-      }
+      var out = "";
+
+      output.forEach(x => {
+        out = out + output[i] + "\n";
+      });
+
+      msg.channel.send(out);
     });
   }
 
