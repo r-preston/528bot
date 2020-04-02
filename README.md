@@ -10,6 +10,7 @@
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
 6. Type "~river <river>" to get the rain chasers information about a river (taken from rain chasers api)
 7. 1 in 200 chance to respond to any message on a valid channel with "Title of your sex tape".
+8. 1 in 5 chance to respond to any mention of "scotland" with "Did you know I wen't to Scotland?".
 8. Type "~help" for a list of comands
 
 ## Todo

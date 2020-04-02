@@ -186,7 +186,7 @@ bot.on('message', function(msg) {
   }
 
   var scot_rx = /(^|(.*\ ))scotland(\ |\?|$|\.|\!).*/i;
-  if(msg.content.match(scot_rx)) {
+  if(msg.content.match(scot_rx) && getRandInt(5) === 1) {
     if(getRandInt(1) === 1) {
       msg.channel.send('Did you go to Scotland?');
     } else {
