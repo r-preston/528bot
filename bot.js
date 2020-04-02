@@ -2,6 +2,7 @@ var Discord = require('discord.js');
 var auth = require('./auth.json');
 const cron = require('cron');
 const $ = require('cheerio');
+const Rainfall = require('./rainfall.js');
 
 const request = require('request');
 const http = require('http');
@@ -182,6 +183,16 @@ bot.on('message', function(msg) {
     } else {
       msg.channel.send('Did you know I went to Scotland?');
     }
+  }
+  
+  if(msg.content.match(/\~rain/)) {
+    var location = msg.content.toLowerCase().split(/\~rain\ /i)[1];
+    Rainfall.get_rain_data(location, (output) => {
+      for(var i = 0; i < output.length; i++)
+      {
+        msg.channel.send(output[i]);
+      }
+    });
   }
 
   if(msg.content.match(/\~dart/)) {
