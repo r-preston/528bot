@@ -140,7 +140,7 @@ function getFiveToEight() {
 
 let morning = new cron.CronJob('00 55 07 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 let afternoon = new cron.CronJob('00 55 19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
-let riverhour = new cron.CronJob('* 55 * * * *', play_river);
+let riverhour = new cron.CronJob('* 55 0 * * *', play_river);
 //let job1 = new cron.CronJob('00 * * * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 
 

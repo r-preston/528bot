@@ -17,8 +17,8 @@
 
 ## Todo
 
-1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
-2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
+1. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
+2. Improve discord status so the bot can be doing something other than "playing" on a a river. (This requires discord to stop being lazy and add the feature)
 3. Implement circling games?
 
 ## How to test
