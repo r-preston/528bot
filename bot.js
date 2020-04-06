@@ -46,9 +46,13 @@ bot.on('ready', function() {
 
   request('http://api.rainchasers.com/v1/river?ts=1357715085', {json: true}, (err, res, body) => {
     if(body.status === 200) {
-        body.data.forEach( (x,i) => {
-            rivers.push(x.river);
-        });
+
+      //maybe use river and section? it is a bit log
+      //rivers = body.data.map(x => `${x.river} ${x.section}`);
+      rivers = body.data.map(x => x.river);
+      
+      //select river immediately
+      play_river();
 
       } else {
         rivers.push('error');
