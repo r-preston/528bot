@@ -53,7 +53,6 @@ bot.on('ready', function() {
       } else {
         rivers.push('error');
       }
-      console.log(rivers);
     });
 });
 
