@@ -13,6 +13,7 @@
 8. 1 in 5 chance to respond to any mention of "scotland" with "Did you know I wen't to Scotland?".
 8. Type "~help" for a list of comands
 9. Type "~rain <location" for a forcast in <location" (credit to Rowan)
+10. Every hour will chose a random river to "Play" on (Displayed in status)
 
 ## Todo
 
