@@ -21,6 +21,7 @@ var bot = new Discord.Client({
 
 var sex_tape_count = 1;
 const sex_tape_freq = 500;
+var rivers = [];
 
 bot.on('ready', function() {
 
@@ -43,6 +44,17 @@ bot.on('ready', function() {
   console.log('Working on channels: ', ... VALID_CHANNELS_s);
   console.log('Five 2 eighting on channel: ', process.env.FIVE_CHANNEL);
 
+  request('http://api.rainchasers.com/v1/river?ts=1357715085', {json: true}, (err, res, body) => {
+    if(body.status === 200) {
+        body.data.forEach( (x,i) => {
+            rivers.push(x.river);
+        });
+
+      } else {
+        rivers.push('error');
+      }
+      console.log(rivers);
+    });
 });
 
 
@@ -107,6 +119,14 @@ var test_event = ( () => {
 
 }).bind(this);
 
+var play_river = ( () => {
+
+    console.log('changing river name');
+  
+    bot.user.setActivity('on the River ' + rivers[getRandInt(rivers.length)], {type: 'PLAYING'});
+  
+}).bind(this);
+
 function getRandInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -117,11 +137,13 @@ function getFiveToEight() {
 
 let morning = new cron.CronJob('00 55 07 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 let afternoon = new cron.CronJob('00 55 19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+let riverhour = new cron.CronJob('* 55 * * * *', play_river);
 //let job1 = new cron.CronJob('00 * * * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 
 
 morning.start();
 afternoon.start();
+riverhour.start();
 //job1.start();
 
 
