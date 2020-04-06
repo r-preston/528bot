@@ -249,7 +249,8 @@ bot.on('message', function(msg) {
   }
 
   if(msg.content.match(/\~help/)) {
-    var message = 
+    var message =
+      '--- Warwick Canoe Club discord bot ---\n'
       'Type \'~river <river>\' for rain chasers info about <river>\n' +
       'Type \'~dart\' to check if the dart is running\n' +
       'Type \'~dart\' to check if the dart is running\n' +
