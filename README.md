@@ -2,9 +2,9 @@
 
 ## 'Features'
 
-1. Will 528 a random user in the channel at the appropriate time.(not working)
+1. Will 528 a random user in the channel at the appropriate time. (hopefuly working)
 2. Chance (1 in 20) of responding to any mention of owen with a "FUCK OFF"
-3. 1 in 30 chance of telling Will to "Stop shit-chatting"
+3. 1 in 30 chance of telling Will to "Stop shit-chatting" (credit to Owen)
 3. After seeing when in a sentence will respon with some variant of "528", "five to eight", ect.
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
@@ -12,6 +12,8 @@
 7. 1 in 200 chance to respond to any message on a valid channel with "Title of your sex tape".
 8. 1 in 5 chance to respond to any mention of "scotland" with "Did you know I wen't to Scotland?".
 8. Type "~help" for a list of comands
+9. Type "~rain <location" for a forcast in <location" (credit to Rowan)
+10. Every hour will chose a random river to "Play" on (Displayed in status)
 
 ## Todo
 
