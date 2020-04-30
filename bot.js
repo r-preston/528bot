@@ -1,5 +1,5 @@
-var Discord = require('discord.js');
-var auth = require('./auth.json');
+const Discord = require('discord.js');
+const auth = require('./auth.json');
 const cron = require('cron');
 const $ = require('cheerio');
 const Rainfall = require('./rainfall.js');
@@ -9,9 +9,7 @@ const http = require('http');
 
 require('dotenv').config();
 
-console.log(process.env.FIVE_CHANNEL);
-
-var five_to_eight_channel_id;// = "692462958562902038";
+//var five_to_eight_channel_id;// = "692462958562902038";
 
 var valid_channels = [];
 
@@ -23,6 +21,7 @@ var bot = new Discord.Client({
 
 var sex_tape_count = 1;
 const sex_tape_freq = 500;
+var rivers = [];
 
 bot.on('ready', function() {
 
@@ -45,6 +44,20 @@ bot.on('ready', function() {
   console.log('Working on channels: ', ... VALID_CHANNELS_s);
   console.log('Five 2 eighting on channel: ', process.env.FIVE_CHANNEL);
 
+  request('http://api.rainchasers.com/v1/river?ts=1357715085', {json: true}, (err, res, body) => {
+    if(body.status === 200) {
+
+      //maybe use river and section? it is a bit log
+      //rivers = body.data.map(x => `${x.river} ${x.section}`);
+      rivers = body.data.map(x => x.river);
+      
+      //select river immediately
+      play_river();
+
+      } else {
+        rivers.push('error');
+      }
+    });
 });
 
 
@@ -67,12 +80,24 @@ var five_to_eight = (() => {
   var user = users[getRandInt(users.length)];
 
   var channel = bot.channels.cache.get(five_to_eight_channel_id);
+  var message =
+    "it is " + getFiveToEight() +
+    "\nCongratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest' +
+    "\nNo one likes you" +
+    "\nNo one likes you" +
+    "\nWoa-ooo-oooh" +
+    "\nYou're a cunt"
+
+  channel.send(message);
+
+  /*
   channel.send("it is " + getFiveToEight());
   channel.send("Congratulations <@" + bot.users.cache.get(user).id+ '>! you are today\'s special guest');
   channel.send("No one likes you");
   channel.send("No one likes you");
   channel.send("Woa-ooo-oooh");
   channel.send("You're a cunt");
+  */
 
 }).bind(this);
 
@@ -97,6 +122,14 @@ var test_event = ( () => {
 
 }).bind(this);
 
+var play_river = ( () => {
+
+    console.log('changing river name');
+  
+    bot.user.setActivity('on the River ' + rivers[getRandInt(rivers.length)], {type: 'PLAYING'});
+  
+}).bind(this);
+
 function getRandInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -107,11 +140,13 @@ function getFiveToEight() {
 
 let morning = new cron.CronJob('00 55 07 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 let afternoon = new cron.CronJob('00 55 19 * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
+let riverhour = new cron.CronJob('00 55 0 * * *', play_river);
 //let job1 = new cron.CronJob('00 * * * * *', five_to_eight); // fires every day, at 01:05:01 and 13:05:01
 
 
 morning.start();
 afternoon.start();
+riverhour.start();
 //job1.start();
 
 
@@ -172,13 +207,12 @@ bot.on('message', function(msg) {
 
   var mine_rx = /(^|(.*\ ))mine(\ |\?|$|\.|\!).*/i;
   if(msg.content.toLowerCase().match(mine_rx)) {
-    msg.channel.send('M - I - N - E');
-    msg.channel.send('Do your press ups!');
+    msg.channel.send('\nM - I - N - E\nDo your press ups!');
   }
 
   var scot_rx = /(^|(.*\ ))scotland(\ |\?|$|\.|\!).*/i;
-  if(msg.content.match(scot_rx)) {
-    if(getRandInt(1) === 1){
+  if(msg.content.match(scot_rx) && getRandInt(5) === 1) {
+    if(getRandInt(1) === 1) {
       msg.channel.send('Did you go to Scotland?');
     } else {
       msg.channel.send('Did you know I went to Scotland?');
@@ -188,18 +222,20 @@ bot.on('message', function(msg) {
   if(msg.content.match(/\~rain/)) {
     var location = msg.content.toLowerCase().split(/\~rain\ /i)[1];
     Rainfall.get_rain_data(location, (output) => {
-      for(var i = 0; i < output.length; i++)
-      {
-        msg.channel.send(output[i]);
-      }
+      var out = "";
+
+      output.forEach(x => {
+        out =  out + '\n' + x;
+      });
+
+      msg.channel.send(out);
     });
   }
 
   if(msg.content.match(/\~dart/)) {
     request('http://isthedartrunning.co.uk/dart.json', {json: true}, (err, res, body) => {
 
-      msg.channel.send(body.text);
-      msg.channel.send('The dart is currently at: ' + (Math.round(body.current_level *100)/100));
+      msg.channel.send(body.text + '\nThe dart is currently at: ' + (Math.round(body.current_level *100)/100));
 
     });
   }
@@ -210,6 +246,7 @@ bot.on('message', function(msg) {
     request('http://api.rainchasers.com/v1/river?q=' + river, {json: true}, (err, res, body) => {
 
       if(body.status === 200) {
+        var res = "";
         body.data.forEach( (x,i) => {
 
           if(i == 8) {
@@ -218,14 +255,15 @@ bot.on('message', function(msg) {
           } else if (i > 8) {
             // do nothing
           } else {
-            var res = x.river + ' ' + x.section + ' grade ' + x.grade.text;
+            res = res + '\n' + x.river + ' ' + x.section + ' grade ' + x.grade.text;
             if(x.state) {
               res = res + ' currently on ' + (Math.round(100 * x.state.value) /100) + ' (' + x.state.text+  ')';
             }
-            msg.channel.send(res);
           }
-          //console.log(body.);
         });
+
+        msg.channel.send(res);
+
       } else if(body.status === 202) {
         msg.channel.send('couldn\'t find the ' + river);
       } else {
@@ -236,8 +274,14 @@ bot.on('message', function(msg) {
   }
 
   if(msg.content.match(/\~help/)) {
-    msg.channel.send('Type \'~river <river>\' for rain chasers info about <river>');
-    msg.channel.send('Type \'~dart\' to check if the dart is running');
+    var message =
+      '--- Warwick Canoe Club discord bot ---\n'
+      'Type \'~river <river>\' for rain chasers info about <river>\n' +
+      'Type \'~dart\' to check if the dart is running\n' +
+      'Type \'~dart\' to check if the dart is running\n' +
+      'Type \'~rain <location>\' for a rain forcast at <location>\n';
+
+    msg.channel.send(message);
   }
 
   if(getRandInt(200) === 0) {

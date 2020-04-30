@@ -2,20 +2,23 @@
 
 ## 'Features'
 
-1. Will 528 a random user in the channel at the appropriate time.(not working)
+1. Will 528 a random user in the channel at the appropriate time. (hopefuly working)
 2. Chance (1 in 20) of responding to any mention of owen with a "FUCK OFF"
-3. 1 in 30 chance of telling Will to "Stop shit-chatting"
+3. 1 in 30 chance of telling Will to "Stop shit-chatting" (credit to Owen)
 3. After seeing when in a sentence will respon with some variant of "528", "five to eight", ect.
 4. Respond to any mention of a number with % 100 == 21 with "Consume!!"
 5. Type "~dart" to find out if the dart is running. (Uses isthedartrunning.co.uk)
 6. Type "~river <river>" to get the rain chasers information about a river (taken from rain chasers api)
 7. 1 in 200 chance to respond to any message on a valid channel with "Title of your sex tape".
+8. 1 in 5 chance to respond to any mention of "scotland" with "Did you know I wen't to Scotland?".
 8. Type "~help" for a list of comands
+9. Type "~rain <location" for a forcast in <location" (credit to Rowan)
+10. Every hour will chose a random river to "Play" on (Displayed in status)
 
 ## Todo
 
-1. Fix the five 2 eighting. (works on my machine but my server doesn't like cron)
-2. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
+1. Make the "~river <river>" search better. Currently you can only search by rivers not by section. e.g. "dart" will work and return all section but "upper dart" returns nothing. A large part of this because rain chasers's search functionality is not good and I'm just using their API.
+2. Improve discord status so the bot can be doing something other than "playing" on a a river. (This requires discord to stop being lazy and add the feature)
 3. Implement circling games?
 
 ## How to test
